@@ -4,6 +4,7 @@ Created on Wed Sep 29 09:22:31 2021
 
 @author: silva
 """
+from sys import getsizeof
 from src.suport_layer.hostTrainer import HostTrainer
 from src.suport_layer.cipher import Cipher
 import re
@@ -122,7 +123,7 @@ class Blockchain:
                 
                 block = Block(pool, self.blockchainType,
                             (previousBlock.index+1), proof, previousHash)
-            
+            print(f'tamanho de um bloco minerado : {getsizeof(block)} bytes')
             self.chain.append(block)
             if (self.isChainValid(self.chain)):
                 self.register()

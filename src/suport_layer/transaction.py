@@ -1,5 +1,6 @@
 
 import json
+from sys import getsizeof
 from .cipher import Cipher
 
 
@@ -33,6 +34,23 @@ class Transaction:
         })
 
     def toJson(self):
+        cabecalho= {
+            'sender': self.sender,
+            'sensor': self.sensor,
+            'receiver': self.receiver,
+        }
+        print(f'---------------- Tansações------------')
+        print(f'tamanho cabeçalho transação : {getsizeof(json.dumps(cabecalho))} bytes')
+            
+        data= {
+            'sender': self.sender,
+            'sensor': self.sensor,
+            'receiver': self.receiver,
+            'data': self.data,
+        }
+        print(f'tamanho dado transação : {getsizeof(json.dumps(self.data))} bytes')
+        print(f'tamanho transação completo : {getsizeof(json.dumps(data))} bytes')
+            
         return {
             'sender': self.sender,
             'sensor': self.sensor,
@@ -50,7 +68,6 @@ class Transaction:
     def fromJsonDecrypt(self, transaction):
         cipher = Cipher()
         try:
-            
             if isinstance(transaction, dict):
                 temp = transaction['data'].replace("b'", "'")
                 temp = str.encode(temp)

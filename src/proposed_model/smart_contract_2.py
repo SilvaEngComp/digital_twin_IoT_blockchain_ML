@@ -16,10 +16,11 @@ class SC2:
         before = 0
         if blockchain.chain is not None:
              before = len(blockchain.chain)
+             print(f"size before {before}")
 
         blockchain.createBlock(transactions,blockType)
         after = len(blockchain.chain)
-        print(f"size before {before} | size after = {after}")
+       
         if(after>before):
             TimeRegister.addTime("Block minered")
             return True

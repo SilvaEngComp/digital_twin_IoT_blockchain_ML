@@ -8,6 +8,7 @@ This is a Smart contract wich receive data collected by sensor and received by g
 and call for SC2 to miner a block for a transaction
 """
 
+from sys import getsizeof
 from corruptedBlockchain import CorruptedBlockchain
 from .smart_contract_2 import SC2
 from src.suport_layer.transaction import Transaction
@@ -48,6 +49,7 @@ class SC1:
               self._blockWidth, self.dataDecrypt(transaction.data)))
 
         if len(self._transactions) >= self._blockWidth:
+            print(f'tamanho pacote com {self._blockWidth} amostras : {getsizeof(self._transactions)} bytes')
             print("A new Block was minner? = ", SC2.minerNotAssinedTransaction(
                 self._node, self._transactions))
             return True

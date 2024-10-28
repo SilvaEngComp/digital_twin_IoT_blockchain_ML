@@ -8,25 +8,48 @@ from src.dashboard.cenary4.blockchain import Blockchain
 class Cenary4:
     @staticmethod
     def show_data_collected():
-        st.header("# Blockchain Válida")
+        # st.header("# Blockchain Válida")
+        # st.write(f'## Nome: data_blockchainh3.json')
+        # st.text("Esses são os dados coletados e registrado na BCD (Blockchain de Dados)")
+        st.header("# Valid Blockchain")
+        st.write(f'## Name: data_blockchainh3.json')
         st.text("This is the data collected and registred in BCD (Data Blockchain)")
         blockchain = SC3.getBCD()
         
-        st.write("# There are ",str(len(blockchain.chain))+" blocks")
+        st.write("# Existem ",str(len(blockchain.chain))+" blocos")
+        # st.write("# There are ",str(len(blockchain.chain))+" blocks")
         st.write(Blockchain.toJsonDecrypted(blockchain.chain))
 
     @staticmethod
     def show_corrupted_data_collected():
         
-        st.header("# Blockchain Corrompida")
+        st.header("# Corrupted Blockchain")
+        # st.header("# Blockchain Corrompida")
         nodes = CorruptedBlockchain.getBlockchainFileNames()
-        print(nodes)
+        col1,col2 = st.columns(2)
+    
         if(nodes):
+            cont=0
             for node in nodes:
-                st.write(f'# Nome: {node}')
-                chain = CorruptedBlockchain.getLocalBLockchainFile(node)
-                st.write("### Contem ",str(len(chain['chain']))+" blocks")
-                st.write(chain['chain'])
+                if node=='data_blockchainh3.json':
+                    continue
+                if cont%2==0:
+                    with col1:
+                        st.write(f'# Name: {node}')
+                        # st.write(f'# Nome: {node}')
+                        chain = CorruptedBlockchain.getLocalBLockchainFile(node)
+                        # st.write("### Contém ",str(len(chain['chain']))+" blocos")
+                        st.write("### Contains ",str(len(chain['chain']))+" blocks")
+                        st.write(chain['chain'])
+                else:
+                    with col2:
+                        st.write(f'# Name: {node}')
+                        # st.write(f'# Nome: {node}')
+                        chain = CorruptedBlockchain.getLocalBLockchainFile(node)
+                        # st.write("### Contém ",str(len(chain['chain']))+" blocos")
+                        st.write("### Contains ",str(len(chain['chain']))+" blocks")
+                        st.write(chain['chain'])
+                cont+=1
     @staticmethod
     def dataset_training():
         df = pd.read_csv('dataset.csv', delimiter=",")

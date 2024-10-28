@@ -219,7 +219,6 @@ class Blockchain:
 
             try:
                 with open(fileName, 'rb') as blockchainFile:
-                    print('hi')
                     if os.path.getsize(fileName) > 0:
                         cipher = Cipher()
                         data = blockchainFile.read()

@@ -1,6 +1,7 @@
 
 import datetime
 import json
+from sys import getsizeof
 from .transaction import Transaction
 from .hostTrainer import HostTrainer
 
@@ -62,14 +63,29 @@ class Block:
                 self.hostTrainer.hostTrainer, None, None, self.transactions).toJson()]
 
         if (self.typeBlock == 'data_blockchain' or self.hostTrainer is None):
+            
+            # jsonData1 = {
+            #     'index': self.index,
+            #     'timestamp': self.timestamp,
+            #     'proof': self.proof,
+            #     'typeBlock': self.typeBlock,
+            #     'previousHash': self.previousHash,
+              
+            # }
+            # print(f'tamanho do cabeçalho blockchain : {getsizeof(json.dumps(jsonData1))} bytes')
+           
             jsonData = {
-                'index': self.index,
-                'timestamp': self.timestamp,
-                'proof': self.proof,
-                'typeBlock': self.typeBlock,
-                'previousHash': self.previousHash,
-                'transactions': transactions
+            'index': self.index,
+            'timestamp': self.timestamp,
+            'proof': self.proof,
+            'typeBlock': self.typeBlock,
+            'previousHash': self.previousHash,
+            'transactions': transactions
             }
+            # print(f'---------------- Transactions------------\n{transactions}')
+            print(f'---------------- Bloco dados------------')
+            print(f'tamanho de um bloco com dados : {getsizeof(json.dumps(jsonData))} bytes')
+            
         else:
             hostTrainer = self.hostTrainer.toJson()
             jsonData = {
@@ -104,7 +120,6 @@ class Block:
 
     @staticmethod
     def fromJsonDecrypt(jsonBlock):
-        print(jsonBlock.transactions)
         pool = []
         if isinstance(jsonBlock, dict):            
             for transaction in jsonBlock['transactions']:

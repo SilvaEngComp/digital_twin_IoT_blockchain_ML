@@ -38,7 +38,7 @@ def config_sidebar():
         
     if st.sidebar.button("Cenário 4"):
         Cenary4.show_data_collected()
-        # Cenary4.show_corrupted_data_collected()
+        Cenary4.show_corrupted_data_collected()
 
     if st.sidebar.button("Aálise do Tempo de Colleta"):
         show_compare_time_operations()

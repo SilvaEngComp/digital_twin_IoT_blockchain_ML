@@ -26,7 +26,7 @@ class CorruptedBlockchain:
 
             try:
                 with open(fileName, 'rb') as blockchainFile:
-                    print('hi corrupted')
+                    
                     if os.path.getsize(fileName) > 0:
                         cipher = Cipher()
                         data = blockchainFile.read()
