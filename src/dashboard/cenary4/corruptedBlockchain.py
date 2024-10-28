@@ -45,7 +45,7 @@ class CorruptedBlockchain:
         fileNames = []
         for file in os.listdir(prefix):
             if file.endswith(".json"):
-                x = re.search("^data_blockchain.*json$", file)
+                x = re.search("^data_blockchain.*json$", file) or re.search("^consumer_blockchain.*json$", file)
                 if(x):
                     fileNames.append(file)
         return fileNames

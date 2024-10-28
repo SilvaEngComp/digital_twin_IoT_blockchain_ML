@@ -1,9 +1,13 @@
 # ui_components/intel_lab.py
+import json
+import os
+import re
 import streamlit as st
 import pandas as pd
 from time import sleep
+from src.dashboard.cenary4.blockchain import Blockchain
 from src.proposed_model.smart_contract_3 import SC3
-
+from src.suport_layer.cipher import Cipher
 class Cenary3:
     @staticmethod
     def show_data_collected():
@@ -39,3 +43,64 @@ class Cenary3:
             st.header("Temperature from Intel Lab Dataset")
             df = pd.read_csv('dataset.csv', delimiter=",")
             st.dataframe(df)
+    @staticmethod
+    def show_blockchains():
+        
+        st.header("# Lista de Blockchains")
+        # st.header("# Blockchain Corrompida")
+        nodes = Cenary3.getBlockchainFileNames()
+        col1,col2 = st.columns(2)
+    
+        if(nodes):
+            print(nodes)
+            cont=0
+            for node in nodes:
+                if cont%2==0:
+                    with col1:
+                        st.write(f'# Name: {node}')
+                        # st.write(f'# Nome: {node}')
+                        chain = Cenary3.getLocalBLockchainFile(node)
+                        print(chain)
+                        # st.write("### Contém ",str(len(chain['chain']))+" blocos")
+                        st.write("### Contains ",str(len(chain['chain']))+" blocks")
+                        st.write(chain['chain'])
+                else:
+                    with col2:
+                        st.write(f'# Name: {node}')
+                        # st.write(f'# Nome: {node}')
+                        chain = Cenary3.getLocalBLockchainFile(node)
+                        # st.write("### Contém ",str(len(chain['chain']))+" blocos")
+                        st.write("### Contains ",str(len(chain['chain']))+" blocks")
+                        st.write(chain['chain'])
+                cont+=1
+    @staticmethod  
+    def getBlockchainFileNames():
+        prefix = os.path.dirname(os.path.abspath(__file__))
+        fileNames = []
+        for file in os.listdir(prefix):
+            if file.endswith(".json"):
+                x = re.search("^data_blockchain.*json$", file) or re.search("^consumer_blockchain.*json$", file)
+                if(x):
+                    fileNames.append(file)
+        return fileNames
+    
+    @staticmethod      
+    def getLocalBLockchainFile(node=None):
+        prefix = os.path.dirname(os.path.abspath(__file__))
+        if node is not None:
+            fileName = str(prefix +"/"  + node)
+
+            try:
+                with open(fileName, 'rb') as blockchainFile:
+                    
+                    if os.path.getsize(fileName) > 0:
+                        cipher = Cipher()
+                        data = blockchainFile.read()
+                        decripted = cipher.decrypt(data)
+                        dataJson = json.loads(decripted)
+                        dataJson = Blockchain.toJsonDecrypted(dataJson['chain'])
+                        return dataJson
+            except Exception as e:
+                print('229 - not found local blockchain file: ', node)
+                print(e)
+                return []

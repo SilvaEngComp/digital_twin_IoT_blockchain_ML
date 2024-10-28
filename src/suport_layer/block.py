@@ -83,8 +83,8 @@ class Block:
             'transactions': transactions
             }
             # print(f'---------------- Transactions------------\n{transactions}')
-            print(f'---------------- Bloco dados------------')
-            print(f'tamanho de um bloco com dados : {getsizeof(json.dumps(jsonData))} bytes')
+            # print(f'---------------- Bloco dados------------')
+            # print(f'tamanho de um bloco com dados : {getsizeof(json.dumps(jsonData))} bytes')
             
         else:
             hostTrainer = self.hostTrainer.toJson()

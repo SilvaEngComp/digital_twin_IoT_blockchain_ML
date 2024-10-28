@@ -33,7 +33,8 @@ def config_sidebar():
 
         
     if st.sidebar.button("Cenário 3"):
-        Cenary3.show_data_collected()
+        # Cenary3.show_data_collected()
+        Cenary3.show_blockchains()
 
         
     if st.sidebar.button("Cenário 4"):

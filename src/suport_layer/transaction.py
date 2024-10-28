@@ -39,8 +39,8 @@ class Transaction:
             'sensor': self.sensor,
             'receiver': self.receiver,
         }
-        print(f'---------------- Tansações------------')
-        print(f'tamanho cabeçalho transação : {getsizeof(json.dumps(cabecalho))} bytes')
+        # print(f'---------------- Tansações------------')
+        # print(f'tamanho cabeçalho transação : {getsizeof(json.dumps(cabecalho))} bytes')
             
         data= {
             'sender': self.sender,
@@ -48,8 +48,8 @@ class Transaction:
             'receiver': self.receiver,
             'data': self.data,
         }
-        print(f'tamanho dado transação : {getsizeof(json.dumps(self.data))} bytes')
-        print(f'tamanho transação completo : {getsizeof(json.dumps(data))} bytes')
+        # print(f'tamanho dado transação : {getsizeof(json.dumps(self.data))} bytes')
+        # print(f'tamanho transação completo : {getsizeof(json.dumps(data))} bytes')
             
         return {
             'sender': self.sender,
