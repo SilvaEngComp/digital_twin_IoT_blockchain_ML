@@ -69,13 +69,16 @@ class Transaction:
         cipher = Cipher()
         try:
             if isinstance(transaction, dict):
-                temp = transaction['data'].replace("b'", "'")
-                temp = str.encode(temp)
-                decriptedTemp = cipher.decrypt(temp)
-                
-                transactionJson = json.loads(decriptedTemp)
-                transactionJson = json.dumps(transactionJson)
-                return Transaction(transaction['sender'], transaction['sensor'], transaction['receiver'], transactionJson)
+                if not isinstance(transaction['data'],dict):
+                    temp = transaction['data'].replace("b'", "'")
+                    temp = str.encode(temp)
+                    decriptedTemp = cipher.decrypt(temp)
+                    
+                    transactionJson = json.loads(decriptedTemp)
+                    transactionJson = json.dumps(transactionJson)
+                    return Transaction(transaction['sender'], transaction['sensor'], transaction['receiver'], transactionJson)
+                else:
+                    return transaction['data']
             else:
                 temp = transaction.data.replace("b'", "'")
                 temp = str.encode(temp)

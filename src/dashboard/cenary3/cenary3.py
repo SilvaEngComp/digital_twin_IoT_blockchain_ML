@@ -46,7 +46,7 @@ class Cenary3:
     @staticmethod
     def show_blockchains():
         
-        st.header("# Lista de Blockchains")
+        st.header("# Lista de Blockchains com os modelos resultantes do treinamento")
         # st.header("# Blockchain Corrompida")
         nodes = Cenary3.getBlockchainFileNames()
         col1,col2 = st.columns(2)
@@ -96,6 +96,7 @@ class Cenary3:
                     if os.path.getsize(fileName) > 0:
                         cipher = Cipher()
                         data = blockchainFile.read()
+                        print('data = {data}')
                         decripted = cipher.decrypt(data)
                         dataJson = json.loads(decripted)
                         dataJson = Blockchain.toJsonDecrypted(dataJson['chain'])
